@@ -1,3 +1,11 @@
+<% if user_signed_in? %>
+<code><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+  |  <%=link_to 'Edit Account', edit_user_registration_path %></code>
+<% else %>
+<code><%= link_to 'Sign In', new_user_session_path %>  |  <%= link_to 'Register', new_user_registration_path %></code>
+<% end %>  
+<br><br>
+
 <div class="container-fluid">
 
 <%= form_tag "/search", method: :get do %>
@@ -15,7 +23,7 @@
 	<% @categories.each do |cat| %>
 		<div>
 			<h3><%= link_to "#{cat.name}", category_path(cat) %></h3>
-			<h4><u>Most Recent:</u></h4>
+			<h4>Most Recent:</h4>
 			<% cat.classifieds.last(5).each do |c| %>
 				<p><%= link_to "#{c.title}", classified_path(c) %></p>
 			<% end %>

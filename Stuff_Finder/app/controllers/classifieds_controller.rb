@@ -18,7 +18,11 @@ class ClassifiedsController < ApplicationController
 			@classified = Classified.new(classified_safe_params.merge(user_id: current_user.id, category_id: @category.id))
 			@classified.save
 		end
-		redirect_to root_path
+		if @classified.save
+			redirect_to root_path
+		else
+			render :new
+		end
 	end
 
 	def show

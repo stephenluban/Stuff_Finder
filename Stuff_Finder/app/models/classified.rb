@@ -4,6 +4,7 @@ class Classified < ActiveRecord::Base
 	belongs_to :user
 
 	validates :title, :description, :price, :category, presence: true
+	validates :price, numericality: true
 
 	def self.search_for(query)
 		where("title LIKE :query or description LIKE :query", query: "%#{query}%")
