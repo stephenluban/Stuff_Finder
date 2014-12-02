@@ -1,3 +1,24 @@
-<% @classified.name %>
-<% @classified.name %>
-<% @classified.name %>
+<p><%= link_to 'Home', root_path %></p>
+
+<h2><%= @classified.title %></h2><br><br>
+
+<dl class="dl-horizontal">
+  <dt>Description</dt>
+  <dd><%= @classified.description %></dd>
+</dl>
+<dl class="dl-horizontal">
+  <dt>Price</dt>
+  <dd>$<%= @classified.price %></dd>
+</dl>
+<% unless @classified.category == nil %>
+<dl class="dl-horizontal">
+  <dt>Category</dt>
+  <dd><%= @classified.category.name %></dd>
+</dl>
+<% end %>
+<% unless @classified.user == nil %>
+<dl class="dl-horizontal">
+  <dt>Contact</dt>
+  <dd><%= link_to "#{@classified.user.email}", "mailto:#{@classified.user.email}" %></dd>
+</dl>
+<% end %>

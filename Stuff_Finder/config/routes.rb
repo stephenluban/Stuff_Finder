@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   
   devise_for :users
   root 'home#index'
-  resources :classifieds
+  get 'classifieds/recent', to: 'classifieds#recent'
+  get '/search', to: 'classifieds#search'
+  resources :classifieds, :categories
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

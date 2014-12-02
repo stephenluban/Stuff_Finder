@@ -1,10 +1,25 @@
-<h1>Welcome to Stuff Finder!</h1>
+<div class="container-fluid">
 
-<p><%= link_to 'Create a new classified', new_classified_path %></p>
-
-<%= @classifieds.each do |c| %>
-	<div>
-		<%= c.name %>
-		<%= link_to 'View', classified_path(c) %>
-	</div>
+<%= form_tag "/search", method: :get do %>
+	<%= search_field_tag :q, params[:q] %>
+	<%= submit_tag "Search Classifieds" %>
 <% end %>
+
+<div class="lead">
+	<h1>Welcome to Stuff Finder!</h1>
+</div>
+
+
+	<p><%= link_to 'Create a new classified', new_classified_path %></p>
+
+	<% @categories.each do |cat| %>
+		<div>
+			<h3><%= link_to "#{cat.name}", category_path(cat) %></h3>
+			<h4><u>Most Recent:</u></h4>
+			<% cat.classifieds.last(5).each do |c| %>
+				<p><%= link_to "#{c.title}", classified_path(c) %></p>
+			<% end %>
+		</div>
+		<br>
+	<% end %>
+</div>

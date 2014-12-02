@@ -3,15 +3,44 @@ class ClassifiedsController < ApplicationController
 
 	def new
 		@classified = Classified.new
+		@category = Category.new
 	end
 
 	def create
-		@classified = Classified.new(params.require(:classified).permit(:title, :description, :price))
-		@classified.save
+		@categories = Category.all
+		@category = Category.new(category_safe_params)
+		existing_cats = @categories.where(name: @category.name)
+		if existing_cats.any? == true
+			@classified = Classified.new(classified_safe_params.merge(user_id: current_user.id, category_id: existing_cats.first.id))
+			@classified.save
+		else
+			@category.save
+			@classified = Classified.new(classified_safe_params.merge(user_id: current_user.id, category_id: @category.id))
+			@classified.save
+		end
 		redirect_to root_path
 	end
 
 	def show
-		@classified = Classified.find(params[:id])
+		@classified = get_classified
+	end
 
+	def search
+		@classifieds = Classified.search_for(params[:q])
+	end
+
+	private
+
+	def category_safe_params
+		params.require(:category).permit(:name)
+	end
+
+	def classified_safe_params
+		params.require(:classified).permit(:title, :description, :price)
+	end
+
+	def get_classified
+		Classified.find(params[:id])
+	end
+	
 end

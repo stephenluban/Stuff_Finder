@@ -1,4 +1,6 @@
-<h1>Create a new classified here.</h1>
+<p><%= link_to 'Home', root_path %></p>
+
+<h2>Create a new classified here.</h2>
 
 <%= form_for @classified do |c| %>
 	<div>
@@ -13,5 +15,11 @@
 		<%= c.label :price %>
 		<%= c.text_field :price %>
 	</div>
+	<%= fields_for @category do |cat| %>
+	<div>
+		<%= cat.label :name, 'Category' %>
+		<%= cat.text_field :name %>
+	</div>
+	<% end %>
 	<%= c.submit %>
 <% end %>

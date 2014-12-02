@@ -1,0 +1,9 @@
+<p><%= link_to 'Home', root_path %></p>
+
+<h2>Search Results</h2>
+
+<ul>
+<% @classifieds.each do |c| %>
+	<li><%= link_to "#{c.title}", classified_path(c) %></li>
+	<% end %>
+</ul>
