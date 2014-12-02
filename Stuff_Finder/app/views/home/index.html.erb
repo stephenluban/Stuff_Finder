@@ -1,1 +1,10 @@
 <h1>Welcome to Stuff Finder!</h1>
+
+<p><%= link_to 'Create a new classified', new_classified_path %></p>
+
+<%= @classifieds.each do |c| %>
+	<div>
+		<%= c.name %>
+		<%= link_to 'View', classified_path(c) %>
+	</div>
+<% end %>
